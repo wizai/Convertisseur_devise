@@ -26,13 +26,14 @@ $total = $Panier->Convert("EUR");
 
 <section class="main">
     <form action="" method="post" id="convertor">
-        <h1>Convert</h1>
         <div class="convertor_container">
+            <h1>Convert</h1>
             <div class="product_block">
                 <input type="text" placeholder="Nom du produit">
                 <input type="number" placeholder="Prix du produit">
                 <input type="text" placeholder="Devise du produit">
             </div>
+            <input type="submit" value="Convertir" class="input_convert">
         </div>
     </form>
 </section>
