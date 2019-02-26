@@ -1,0 +1,10 @@
+@import "scss/partials/reset";
+@import "scss/partials/variables";
+@import "scss/partials/mixins";
+@import "scss/partials/fonts";
+
+/******* GLOBAL *******/
+@import "scss/partials/commons";
+
+/******* CONVERT *******/
+@import "scss/convert";

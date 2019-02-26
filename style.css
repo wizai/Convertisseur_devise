@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
+@import url("https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* COLROS */
+/*TYPO*/
+/**** RESPONSIVE ****/
+/* Letter spacing is simpler.. stolen from somewhere */
+/* font-size to rem with backup, stolen from somewhere */
+/**
+ * Gives a card depth effect.
+ *
+ * @param {Number} $depth - depth level (between 1 and 5)
+ *
+ * @link http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality Google Design
+ *
+ * @requires {function} top-shadow
+ * @requires {function} bottom-shadow
+ */
+/******* GLOBAL *******/
+body {
+  font-family: "Raleway", serif;
+  color: #2B3439;
+  font-weight: normal;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+.main {
+  max-width: 767px;
+  -moz-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/******* CONVERT *******/
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,17 @@
+{
+  "name": "williamnisole/convertisseur_devise",
+  "authors": [
+    {
+      "name": "wizai",
+      "email": "william.nisole@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Devise\\": "src"
+    }
+  }
+}

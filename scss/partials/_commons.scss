@@ -1,0 +1,16 @@
+body{
+  font-family:  $Raleway;
+  color: $black;
+  font-weight: normal;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+.main{
+  max-width: 767px;
+  @include box-shadow(0 4px 6px 0 hsla(0%, 0%, 0%, 0.2));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include transform(translate(-50%,-50%));
+}
