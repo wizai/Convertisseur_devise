@@ -5,34 +5,33 @@ use Devise\Produit;
 use Devise\Panier;
 
 $Panier = new Panier();
-//$Panier->Add(new Produit("Café", 20, "EUR",2));
-//$Panier->Add(new Produit("Thé", 3, "USD",1));
-//$total = $Panier->Convert("EUR");
-//echo $total;
 
 $produits = [];
-$convert = $_POST['convertor'];
-$name = $convert['name'];
-$prix = $convert['prix'];
-$devise = $convert['devise'];
-$quantite = $convert['quantite'];
+if (isset($_POST['convertor'])) {
+    $convert = $_POST['convertor'];
+    $name = $convert['name'];
+    $prix = $convert['prix'];
+    $devise = $convert['devise'];
+    $quantite = $convert['quantite'];
 
-for ($i = 0; $i < count($convert['name']); $i++ ){
-    $produits[] = [
-        "name" => $name[$i],
-        "prix" =>$prix[$i],
-        "devise" =>$devise[$i],
-        "quantite" =>$quantite[$i]
-    ];
-}
+    for ($i = 0; $i < count($convert['name']); $i++ ){
+        $produits[] = [
+            "name" => $name[$i],
+            "prix" =>$prix[$i],
+            "devise" =>$devise[$i],
+            "quantite" =>$quantite[$i]
+        ];
+    }
 
-foreach ($produits as $item){
-    $Panier->Add(new Produit($item['name'],$item['prix'],$item['devise'],$item['quantite']));
-}
+    foreach ($produits as $item){
+        $Panier->Add(new Produit($item['name'],$item['prix'],$item['devise'],$item['quantite']));
+    }
 
-$total = $Panier->Convert("EUR");
-echo $total;
+    $total = $Panier->Convert("EUR");
+    echo $total;
+};
 ?>
+
 
 <!doctype html>
 <html lang="fr">
@@ -56,41 +55,21 @@ echo $total;
                 <div class="content">
                     <div class="product_block">
                         <div class="left">
-                            <input class="product_block__name" name="convertor[name][]" type="text" placeholder="Nom du produit">
+                            <input class="product_block__name" required name="convertor[name][]" type="text" placeholder="Nom du produit">
                             <div class="product_block__infoPrix">
                                 <div class="product_block__prix">
                                     <label for="product_block__prix">Prix : </label>
-                                    <input type="number" id="product_block__prix" name="convertor[prix][]" value="10">
+                                    <input type="number" id="product_block__prix" required name="convertor[prix][]" placeholder="10">
                                 </div>
                                 <div class="product_block__devise">
                                     <label for="product_block__prix">Devise : </label>
-                                    <input type="text" id="product_block__devise" name="convertor[devise][]" value="EUR">
+                                    <input type="text" id="product_block__devise" required name="convertor[devise][]" placeholder="EUR">
                                 </div>
                             </div>
                         </div>
                         <div class="right">
                             <div class="actionMoreLess less"><i class="fas fa-minus"></i></div>
-                            <input type="number" class="product_block__quantite" name="convertor[quantite][]" value="1">
-                            <div class="actionMoreLess more"><i class="fas fa-plus"></i></div>
-                        </div>
-                    </div>
-                    <div class="product_block">
-                        <div class="left">
-                            <input class="product_block__name" name="convertor[name][]" type="text" placeholder="Nom du produit">
-                            <div class="product_block__infoPrix">
-                                <div class="product_block__prix">
-                                    <label for="product_block__prix">Prix : </label>
-                                    <input type="number" id="product_block__prix" name="convertor[prix][]" value="10">
-                                </div>
-                                <div class="product_block__devise">
-                                    <label for="product_block__prix">Devise : </label>
-                                    <input type="text" id="product_block__devise" name="convertor[devise][]" value="EUR">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="actionMoreLess less"><i class="fas fa-minus"></i></div>
-                            <input type="number" class="product_block__quantite" name="convertor[quantite][]" value="1">
+                            <input type="number" class="product_block__quantite" name="convertor[quantite][]" placeholder="1" ">
                             <div class="actionMoreLess more"><i class="fas fa-plus"></i></div>
                         </div>
                     </div>
@@ -115,6 +94,31 @@ echo $total;
                     $Input.val(parseInt($Input.val())-1);
             });
         });
+
+        $('.addProductBlock').on('click' , function (e) {
+            e.preventDefault();
+            const template = "<div class=\"product_block\">\n" +
+                "                        <div class=\"left\">\n" +
+                "                            <input class=\"product_block__name\" required name=\"convertor[name][]\" type=\"text\" placeholder=\"Nom du produit\">\n" +
+                "                            <div class=\"product_block__infoPrix\">\n" +
+                "                                <div class=\"product_block__prix\">\n" +
+                "                                    <label for=\"product_block__prix\">Prix : </label>\n" +
+                "                                    <input type=\"number\" id=\"product_block__prix\" required name=\"convertor[prix][]\" placeholder=\"10\">\n" +
+                "                                </div>\n" +
+                "                                <div class=\"product_block__devise\">\n" +
+                "                                    <label for=\"product_block__prix\">Devise : </label>\n" +
+                "                                    <input type=\"text\" id=\"product_block__devise\" required name=\"convertor[devise][]\" placeholder=\"EUR\">\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"right\">\n" +
+                "                            <div class=\"actionMoreLess less\"><i class=\"fas fa-minus\"></i></div>\n" +
+                "                            <input type=\"number\" class=\"product_block__quantite\" name=\"convertor[quantite][]\" placeholder=\"1\" \">\n" +
+                "                            <div class=\"actionMoreLess more\"><i class=\"fas fa-plus\"></i></div>\n" +
+                "                        </div>\n" +
+                "                    </div>";
+            $('#convertor .content').append(template).fadeIn('slow');
+        })
     });
 
 </script>
