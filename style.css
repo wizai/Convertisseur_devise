@@ -45,6 +45,28 @@ body {
   transform: translate(-50%, -50%);
 }
 
+input {
+  border: 0px;
+}
+
 /******* CONVERT *******/
+#convertor .convertor_container {
+  padding: 20px;
+  text-align: center;
+}
+#convertor .convertor_container .product_block {
+  -moz-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+#convertor .convertor_container .input_convert {
+  background-color: #7CDDC5;
+  color: #ffffff;
+}
 
 /*# sourceMappingURL=style.css.map */

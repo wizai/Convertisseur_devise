@@ -1,7 +1,17 @@
 #convertor{
   .convertor_container{
+    padding: 20px;
+    text-align: center;
     .product_block{
-
+      @include box-shadow(0 4px 6px 0 hsla(0%, 0%, 0%, 0.2));
+      padding: 20px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      border-radius: 15px;
+    }
+    .input_convert{
+      background-color: $green;
+      color: $white;
     }
   }
 }
