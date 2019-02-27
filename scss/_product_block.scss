@@ -1,0 +1,70 @@
+.product_block{
+  background-color: $white;
+  padding: 20px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(space-between);
+  .left{
+    width: calc(100% -  110px);
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(flex-start);
+    @include flex-flow(row wrap);
+    .product_block__name{
+      width: 100%;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .product_block__prix, .product_block__devise{
+      display: inline-block;
+      text-align: left;
+      label{
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+  }
+  .right{
+    width: 100px;
+    @include flexbox();
+    @include align-items(center);
+    @include justify-content(flex-end);
+    div{
+      font-size: 10px;
+      border: 1px solid $green;
+      color: $green;
+      height: 30px;
+      width: 30px;
+      @include flexbox();
+      @include align-items(center);
+      @include justify-content(center);
+      border-radius: 100%;
+      cursor: pointer;
+      @include transition(all 0.3s ease-in-out);
+      &:hover{
+        background-color: $green;
+        color: $white;
+      }
+    }
+    input{
+      width: 30px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+  input{
+    width: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $black;
+  }
+  &:last-of-type{
+    margin-bottom: 0px;
+  }
+}
