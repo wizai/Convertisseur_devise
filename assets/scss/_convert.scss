@@ -43,7 +43,7 @@
     .content{
       width: 100%;
       height: calc(100% - 70px);
-      overflow-y: scroll;
+      overflow-y: auto;
       overflow-x: hidden;
     }
     h1{

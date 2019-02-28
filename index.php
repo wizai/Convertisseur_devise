@@ -60,6 +60,9 @@
                                 <input type="number" class="product_block__quantite" name="convertor[quantite][]" value="1" ">
                                 <div class="actionMoreLess more"><i class="fas fa-plus"></i></div>
                             </div>
+                            <div class="product_block_delete">
+                                <i class="far fa-trash-alt"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="addProductBlock">
@@ -87,35 +90,44 @@
         else if ($Input.val()>=1)
             $Input.val(parseInt($Input.val())-1);
     });
+    $("body").on('click','.product_block_delete',function(){
+        let $produit = $(this).closest('.product_block');
+        $($produit).fadeOut('slow', function(){
+            $($produit).remove();
+        });
+    });
 
     $('.addProductBlock').on('click' , function (e) {
         e.preventDefault();
         const template = " <div class=\"product_block\">\n" +
-            "                        <div class=\"left\">\n" +
-            "                            <input class=\"product_block__name\" required name=\"convertor[name][]\" type=\"text\" placeholder=\"Nom du produit\">\n" +
-            "                            <div class=\"product_block__infoPrix\">\n" +
-            "                                <div class=\"product_block__prix\">\n" +
-            "                                    <label for=\"product_block__prix\">Prix : </label>\n" +
-            "                                    <input type=\"number\" id=\"product_block__prix\" required name=\"convertor[prix][]\" placeholder=\"10\" min=\"0\" step=\"0.01\">\n" +
-            "                                </div>\n" +
-            "                                <div class=\"product_block__devise\">\n" +
-            "                                    <label for=\"product_block__prix\">Devise : </label>\n" +
-            "                                    <select name=\"convertor[devise][]\" id=\"product_block__devise\">\n" +
-            "                                        <option value=\"USD\">$</option>\n" +
-            "                                        <option value=\"EUR\">€</option>\n" +
-            "                                        <option value=\"JPY\">¥</option>\n" +
-            "                                        <option value=\"GBP\">£</option>\n" +
-            "                                        <option value=\"CLF\">UF</option>\n" +
-            "                                    </select>\n" +
+            "                            <div class=\"left\">\n" +
+            "                                <input class=\"product_block__name\" required name=\"convertor[name][]\" type=\"text\" placeholder=\"Nom du produit\">\n" +
+            "                                <div class=\"product_block__infoPrix\">\n" +
+            "                                    <div class=\"product_block__prix\">\n" +
+            "                                        <label for=\"product_block__prix\">Prix : </label>\n" +
+            "                                        <input type=\"number\" id=\"product_block__prix\" required name=\"convertor[prix][]\" placeholder=\"10\" min=\"0\" step=\"0.01\">\n" +
+            "                                    </div>\n" +
+            "                                    <div class=\"product_block__devise\">\n" +
+            "                                        <label for=\"product_block__prix\">Devise : </label>\n" +
+            "                                        <select name=\"convertor[devise][]\" id=\"product_block__devise\">\n" +
+            "                                            <option value=\"USD\">$</option>\n" +
+            "                                            <option value=\"EUR\">€</option>\n" +
+            "                                            <option value=\"JPY\">¥</option>\n" +
+            "                                            <option value=\"GBP\">£</option>\n" +
+            "                                            <option value=\"CLF\">UF</option>\n" +
+            "                                        </select>\n" +
+            "                                    </div>\n" +
             "                                </div>\n" +
             "                            </div>\n" +
-            "                        </div>\n" +
-            "                        <div class=\"right\">\n" +
-            "                            <div class=\"actionMoreLess less\"><i class=\"fas fa-minus\"></i></div>\n" +
-            "                            <input type=\"number\" class=\"product_block__quantite\" name=\"convertor[quantite][]\" value=\"1\" \">\n" +
-            "                            <div class=\"actionMoreLess more\"><i class=\"fas fa-plus\"></i></div>\n" +
-            "                        </div>\n" +
-            "                    </div>";
+            "                            <div class=\"right\">\n" +
+            "                                <div class=\"actionMoreLess less\"><i class=\"fas fa-minus\"></i></div>\n" +
+            "                                <input type=\"number\" class=\"product_block__quantite\" name=\"convertor[quantite][]\" value=\"1\" \">\n" +
+            "                                <div class=\"actionMoreLess more\"><i class=\"fas fa-plus\"></i></div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"product_block_delete\">\n" +
+            "                                <i class=\"far fa-trash-alt\"></i>\n" +
+            "                            </div>\n" +
+            "                        </div>";
         $('#convertor .container.panier .content').append(template).fadeIn('slow');
     });
 
@@ -129,14 +141,14 @@
         $.ajax({
             type: "POST",
             url: url,
-            data: form.serialize(), // serializes the form's elements.
+            data: form.serialize(),
             success: function(data)
             {
                 $('#convertor .container.resultat h1').html(data);
             }
         });
 
-        e.preventDefault(); // avoid to execute the actual submit of the form.
+        e.preventDefault();
     });
 
 </script>
