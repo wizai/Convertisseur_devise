@@ -41,7 +41,7 @@
                                 <div class="product_block__infoPrix">
                                     <div class="product_block__prix">
                                         <label for="product_block__prix">Prix : </label>
-                                        <input type="number" id="product_block__prix" required name="convertor[prix][]" placeholder="10" min="0">
+                                        <input type="number" id="product_block__prix" required name="convertor[prix][]" placeholder="10" min="0" step="0.01">
                                     </div>
                                     <div class="product_block__devise">
                                         <label for="product_block__prix">Devise : </label>
@@ -96,7 +96,7 @@
             "                            <div class=\"product_block__infoPrix\">\n" +
             "                                <div class=\"product_block__prix\">\n" +
             "                                    <label for=\"product_block__prix\">Prix : </label>\n" +
-            "                                    <input type=\"number\" id=\"product_block__prix\" required name=\"convertor[prix][]\" placeholder=\"10\" min=\"0\">\n" +
+            "                                    <input type=\"number\" id=\"product_block__prix\" required name=\"convertor[prix][]\" placeholder=\"10\" min=\"0\" step=\"0.01\">\n" +
             "                                </div>\n" +
             "                                <div class=\"product_block__devise\">\n" +
             "                                    <label for=\"product_block__prix\">Devise : </label>\n" +
