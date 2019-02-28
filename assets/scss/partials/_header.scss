@@ -1,0 +1,35 @@
+.header{
+  @include flexbox();
+  @include align-items(center);
+  @include justify-content(center);
+  margin-bottom: 20px;
+  width: 100%;
+  ul{
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background-color: $white;
+    border-radius: 5px;
+    li{
+      display: inline-block;
+      @include transition(all 0.3s ease-in-out);
+      &.active{
+        font-weight: 700;
+        color: $green;
+        cursor: pointer;
+      }
+      &:first-of-type{
+        &:after{
+          content: '';
+          width: 30px;
+          background-color: $black;
+          height: 1px;
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+}

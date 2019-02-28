@@ -1,11 +1,12 @@
-@import "scss/partials/reset";
-@import "scss/partials/variables";
-@import "scss/partials/mixins";
-@import "scss/partials/fonts";
+@import "assets/scss/partials/reset";
+@import "assets/scss/partials/variables";
+@import "assets/scss/partials/mixins";
+@import "assets/scss/partials/fonts";
 
 /******* GLOBAL *******/
-@import "scss/partials/commons";
+@import "assets/scss/partials/commons";
+@import "assets/scss/partials/header";
 
 /******* CONVERT *******/
-@import "scss/convert";
-@import "scss/product_block";
+@import "assets/scss/convert";
+@import "assets/scss/product_block";

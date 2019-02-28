@@ -66,6 +66,55 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.header {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.header ul {
+  list-style: none;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+.header ul li {
+  display: inline-block;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.header ul li.active {
+  font-weight: 700;
+  color: #7CDDC5;
+  cursor: pointer;
+}
+.header ul li:first-of-type:after {
+  content: "";
+  width: 30px;
+  background-color: #2B3439;
+  height: 1px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
 /******* CONVERT *******/
 #convertor {
   -moz-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
@@ -79,13 +128,29 @@ input[type=number] {
 }
 #convertor form {
   height: 100%;
-}
-#convertor .container {
-  height: 100%;
   padding: 20px;
+  overflow: hidden;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+#convertor .choiceDevise {
+  margin-bottom: 20px;
+  text-align: center;
+}
+#convertor .choiceDevise label {
+  margin-right: 10px;
+}
+#convertor .container {
+  width: 100%;
+  height: calc(100% - 120px);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: none;
+}
+#convertor .container > div:last-of-type {
+  height: 100%;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -105,18 +170,56 @@ input[type=number] {
   -ms-flex-flow: column wrap;
   flex-flow: column wrap;
 }
+#convertor .container.resultat .content {
+  height: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  -webkit-flex-flow: column wrap;
+  -moz-flex-flow: column wrap;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+}
+#convertor .container.active {
+  display: block;
+}
 #convertor .container .content {
   width: 100%;
-  text-align: center;
   height: calc(100% - 70px);
   overflow-y: scroll;
   overflow-x: hidden;
+}
+#convertor .container h1 {
+  font-size: 100px;
+}
+#convertor .container h1:after {
+  content: "";
+  width: 50px;
+  height: 5px;
+  background-color: #7CDDC5;
+  display: block;
+  margin: 20px auto 0px;
+}
+#convertor .container h1 span {
+  font-size: 50px;
+  font-weight: 300;
 }
 #convertor .container .addProductBlock {
   cursor: pointer;
   position: absolute;
   bottom: 100px;
-  right: 25px;
+  right: 20px;
   background-color: #8573E5;
   color: #ffffff;
   height: 60px;

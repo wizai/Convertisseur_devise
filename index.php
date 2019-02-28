@@ -1,38 +1,3 @@
-<?php
-
-require __DIR__ . '/vendor/autoload.php';
-use Devise\Produit;
-use Devise\Panier;
-
-$Panier = new Panier();
-
-$produits = [];
-if (isset($_POST['convertor'])) {
-    $convert = $_POST['convertor'];
-    $name = $convert['name'];
-    $prix = $convert['prix'];
-    $devise = $convert['devise'];
-    $quantite = $convert['quantite'];
-
-    for ($i = 0; $i < count($convert['name']); $i++ ){
-        $produits[] = [
-            "name" => $name[$i],
-            "prix" =>$prix[$i],
-            "devise" =>$devise[$i],
-            "quantite" =>$quantite[$i]
-        ];
-    }
-
-    foreach ($produits as $item){
-        $Panier->Add(new Produit($item['name'],$item['prix'],$item['devise'],$item['quantite']));
-    }
-
-    $total = $Panier->Convert("EUR");
-    echo $total;
-};
-?>
-
-
 <!doctype html>
 <html lang="fr">
 <head>
@@ -50,75 +15,128 @@ if (isset($_POST['convertor'])) {
 
 <section class="main">
     <div id="convertor">
-        <form action="" method="post" name="convertor" enctype="multipart/form-data">
-            <div class="container">
-                <div class="content">
-                    <div class="product_block">
-                        <div class="left">
-                            <input class="product_block__name" required name="convertor[name][]" type="text" placeholder="Nom du produit">
-                            <div class="product_block__infoPrix">
-                                <div class="product_block__prix">
-                                    <label for="product_block__prix">Prix : </label>
-                                    <input type="number" id="product_block__prix" required name="convertor[prix][]" placeholder="10">
-                                </div>
-                                <div class="product_block__devise">
-                                    <label for="product_block__prix">Devise : </label>
-                                    <input type="text" id="product_block__devise" required name="convertor[devise][]" placeholder="EUR">
+        <form action="convertir.php" method="post" name="convertor" enctype="multipart/form-data">
+            <div class="header">
+                <ul>
+                    <li class="active">Panier</li>
+                    <li>Résultat</li>
+                </ul>
+            </div>
+            <div class="container panier active">
+                <div class="choiceDevise">
+                    <label for="mainDevise">Convertir en : </label>
+                    <select name="mainDevise" id="mainDevise">
+                        <option value="USD">$</option>
+                        <option value="EUR">€</option>
+                        <option value="JPY">¥</option>
+                        <option value="GBP">£</option>
+                        <option value="CLF">UF</option>
+                    </select>
+                </div>
+                <div>
+                    <div class="content">
+                        <div class="product_block">
+                            <div class="left">
+                                <input class="product_block__name" required name="convertor[name][]" type="text" placeholder="Nom du produit">
+                                <div class="product_block__infoPrix">
+                                    <div class="product_block__prix">
+                                        <label for="product_block__prix">Prix : </label>
+                                        <input type="number" id="product_block__prix" required name="convertor[prix][]" placeholder="10" min="0">
+                                    </div>
+                                    <div class="product_block__devise">
+                                        <label for="product_block__prix">Devise : </label>
+                                        <select name="convertor[devise][]" id="product_block__devise">
+                                            <option value="USD">$</option>
+                                            <option value="EUR">€</option>
+                                            <option value="JPY">¥</option>
+                                            <option value="GBP">£</option>
+                                            <option value="CLF">UF</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="right">
-                            <div class="actionMoreLess less"><i class="fas fa-minus"></i></div>
-                            <input type="number" class="product_block__quantite" name="convertor[quantite][]" placeholder="1" ">
-                            <div class="actionMoreLess more"><i class="fas fa-plus"></i></div>
+                            <div class="right">
+                                <div class="actionMoreLess less"><i class="fas fa-minus"></i></div>
+                                <input type="number" class="product_block__quantite" name="convertor[quantite][]" value="1" ">
+                                <div class="actionMoreLess more"><i class="fas fa-plus"></i></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="addProductBlock">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <input type="submit" value="Convertir" class="input_convert">
                 </div>
-                <div class="addProductBlock">
-                    <i class="fas fa-plus"></i>
+            </div>
+            <div class="container resultat">
+                <div class="content">
+                    <h2>Montant total : </h2>
+                    <h1></h1>
                 </div>
-                <input type="submit" value="Convertir" class="input_convert">
             </div>
         </form>
     </div>
 </section>
 <script>
 
-    $(document).ready(function () {
-        $('.product_block').each(function () {
-            let $Input = $('.product_block__quantite', this);
-            $(".actionMoreLess", this).on('click',function(){
-                if ($(this).hasClass('more'))
-                    $Input.val(parseInt($Input.val())+1);
-                else if ($Input.val()>=1)
-                    $Input.val(parseInt($Input.val())-1);
-            });
+    $("body").on('click','.actionMoreLess',function(){
+        let $parent = $(this).closest('.product_block');
+        let $Input = $($parent).find('.product_block__quantite');
+        if ($(this).hasClass('more'))
+            $Input.val(parseInt($Input.val())+1);
+        else if ($Input.val()>=1)
+            $Input.val(parseInt($Input.val())-1);
+    });
+
+    $('.addProductBlock').on('click' , function (e) {
+        e.preventDefault();
+        const template = " <div class=\"product_block\">\n" +
+            "                        <div class=\"left\">\n" +
+            "                            <input class=\"product_block__name\" required name=\"convertor[name][]\" type=\"text\" placeholder=\"Nom du produit\">\n" +
+            "                            <div class=\"product_block__infoPrix\">\n" +
+            "                                <div class=\"product_block__prix\">\n" +
+            "                                    <label for=\"product_block__prix\">Prix : </label>\n" +
+            "                                    <input type=\"number\" id=\"product_block__prix\" required name=\"convertor[prix][]\" placeholder=\"10\" min=\"0\">\n" +
+            "                                </div>\n" +
+            "                                <div class=\"product_block__devise\">\n" +
+            "                                    <label for=\"product_block__prix\">Devise : </label>\n" +
+            "                                    <select name=\"convertor[devise][]\" id=\"product_block__devise\">\n" +
+            "                                        <option value=\"USD\">$</option>\n" +
+            "                                        <option value=\"EUR\">€</option>\n" +
+            "                                        <option value=\"JPY\">¥</option>\n" +
+            "                                        <option value=\"GBP\">£</option>\n" +
+            "                                        <option value=\"CLF\">UF</option>\n" +
+            "                                    </select>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                        <div class=\"right\">\n" +
+            "                            <div class=\"actionMoreLess less\"><i class=\"fas fa-minus\"></i></div>\n" +
+            "                            <input type=\"number\" class=\"product_block__quantite\" name=\"convertor[quantite][]\" value=\"1\" \">\n" +
+            "                            <div class=\"actionMoreLess more\"><i class=\"fas fa-plus\"></i></div>\n" +
+            "                        </div>\n" +
+            "                    </div>";
+        $('#convertor .container.panier .content').append(template).fadeIn('slow');
+    });
+
+
+    $('form').submit(function(e) {
+        $('.header li, #convertor .container.panier').removeClass('active');
+        $('.header li:last-of-type, #convertor .container.resultat').addClass('active');
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                $('#convertor .container.resultat h1').html(data);
+            }
         });
 
-        $('.addProductBlock').on('click' , function (e) {
-            e.preventDefault();
-            const template = "<div class=\"product_block\">\n" +
-                "                        <div class=\"left\">\n" +
-                "                            <input class=\"product_block__name\" required name=\"convertor[name][]\" type=\"text\" placeholder=\"Nom du produit\">\n" +
-                "                            <div class=\"product_block__infoPrix\">\n" +
-                "                                <div class=\"product_block__prix\">\n" +
-                "                                    <label for=\"product_block__prix\">Prix : </label>\n" +
-                "                                    <input type=\"number\" id=\"product_block__prix\" required name=\"convertor[prix][]\" placeholder=\"10\">\n" +
-                "                                </div>\n" +
-                "                                <div class=\"product_block__devise\">\n" +
-                "                                    <label for=\"product_block__prix\">Devise : </label>\n" +
-                "                                    <input type=\"text\" id=\"product_block__devise\" required name=\"convertor[devise][]\" placeholder=\"EUR\">\n" +
-                "                                </div>\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                        <div class=\"right\">\n" +
-                "                            <div class=\"actionMoreLess less\"><i class=\"fas fa-minus\"></i></div>\n" +
-                "                            <input type=\"number\" class=\"product_block__quantite\" name=\"convertor[quantite][]\" placeholder=\"1\" \">\n" +
-                "                            <div class=\"actionMoreLess more\"><i class=\"fas fa-plus\"></i></div>\n" +
-                "                        </div>\n" +
-                "                    </div>";
-            $('#convertor .content').append(template).fadeIn('slow');
-        })
+        e.preventDefault(); // avoid to execute the actual submit of the form.
     });
 
 </script>
